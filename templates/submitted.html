@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Catalan History!</title>
+  </head>
+
+  <body>
+    <h2>The following event(s) occurred on this date: {{d}}</h2>
+    <br>
+    {% for i in q %}
+    {{i['event']}}
+    <br>
+    <br>
+    {% endfor %}
+  </body>
+</html>
