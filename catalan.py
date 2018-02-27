@@ -9,7 +9,7 @@ Import mechanism:
 We made each event a separate collection in the Cieres database.
 '''
 
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 import pymongo
 import json
 import sys
@@ -71,20 +71,36 @@ def date(d):
         print i
 date('-300')
 
-
+#Searching by description
 def desc(d):
     c = db.collection.find({'description':d})
     for i in c:
         print i
 desc('Auge de Mero')
 
+#Searching by date and description
+def search (date, desc):
+    c = db.collection.find({'date':date, 'description': desc})
+    q = []
+    for i in c:
+        q.append(i)
+    return q
+
 app = Flask(__name__)
 
 @app.route('/', methods = ['POST','GET'])
 
 def root():
-    updateDB(el)
-    return render_template("root.html")
+    print request.args
+    q =[]
+    if request.args['Submitted'] == 'submit':
+        print "SUBMITTED"
+        date = request.args['date']
+        desc = request.args['desc']
+        #q = search(date,desc)
+        q = [date,desc]
+    #updateDB(el)
+    return render_template("root.html", q=q)
 
 if __name__ == '__main__':
     app.debug = True

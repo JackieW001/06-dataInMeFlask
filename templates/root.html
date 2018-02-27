@@ -10,8 +10,13 @@
     <form method = "GET" action = "/">
       Type in a date and/or description you would like to search:
       <input type="text" placeholder="date" name="date">
-      <input type="text" placeholder="description" name="date">
-      <button type="submit" name="Submitted">Submit!</button>
+      <input type="text" placeholder="description" name="desc">
+      <button type="submit" name="Submitted" value="submit">Submit!</button>
     </form>
+    <br>
+    {% for i in q %}
+    {{i}}
+    <br>
+    {% endfor %}
   </body>
 </html>
