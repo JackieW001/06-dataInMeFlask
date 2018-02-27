@@ -5,18 +5,13 @@
   </head>
 
   <body>
-    <h1><center>The following database contains history in the Catalan language. You are able to search this database using date and/or a description.</center></h1>
-
-    <form method = "GET" action = "/">
+    <h1>The following database contains history in the Catalan language. You are able to search this database using date.</h1>
+    <h3> Try the following dates for instance: -300, -234, -50, 2006/11/16, 2007/05/24, 2012/07/27. </h3>
+    <form method = "GET" action = "/submitted">
       Type in a date and/or description you would like to search:
       <input type="text" placeholder="date" name="date">
-      <input type="text" placeholder="description" name="desc">
+      <!--<input type="text" placeholder="description" name="desc">-->
       <button type="submit" name="Submitted" value="submit">Submit!</button>
     </form>
-    <br>
-    {% for i in q %}
-    {{i}}
-    <br>
-    {% endfor %}
   </body>
 </html>

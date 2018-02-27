@@ -59,7 +59,6 @@ def updateDB(event_list):
         print "added successfully"
 
 #print el
-db.collection.drop()
 
 #Adding to Database
 #collection.insert_many(el)
@@ -67,8 +66,13 @@ db.collection.drop()
 #Searching by date
 def date(d):
     c = db.collection.find({'date':d})
+    q = []
     for i in c:
+        result = {}
+        result['event'] = i['description']
+        q.append(result)
         print i
+    return q
 date('-300')
 
 #Searching by description
@@ -76,7 +80,7 @@ def desc(d):
     c = db.collection.find({'description':d})
     for i in c:
         print i
-desc('Auge de Mero')
+#desc('Auge de Mero')
 
 #Searching by date and description
 def search (date, desc):
@@ -87,9 +91,28 @@ def search (date, desc):
     return q
 
 app = Flask(__name__)
+'''
+This is to drop the db and add it in but it just takes wayyyy
+too long to add in every time.
+'''
+#db.collection.drop()
+#updateDB(el)
 
 @app.route('/', methods = ['POST','GET'])
+def root():
+    return render_template('root.html')
 
+@app.route('/submitted', methods = ['POST','GET'])
+def submit():
+    if request.args['Submitted'] == 'submit':
+        print "SUBMITTED"
+        d = request.args['date']
+        #desc = request.args['desc']
+        #q = search(date,desc)
+        q = date(d)
+    return render_template("submitted.html", q=q, date=d)
+
+'''
 def root():
     print request.args
     q =[]
@@ -101,6 +124,7 @@ def root():
         q = [date,desc]
     #updateDB(el)
     return render_template("root.html", q=q)
+'''
 
 if __name__ == '__main__':
     app.debug = True
